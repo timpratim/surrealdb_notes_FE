@@ -26,11 +26,17 @@ body {
 .note {
   background-color: #fff;
   padding: 20px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);  /* Add shadow effect */
+  box-shadow: 0px 5px 15px #9600ff;  /* Add shadow effect */
   height: 200px;
   overflow: hidden;
   border-radius: 10px;
 }
+
+.title {
+  color: #ff00a0;
+}
+
+
 
 /* rest of your CSS code */
 
@@ -45,7 +51,7 @@ input, textarea {
 }
 
 button {
-  background-color: #5CDB95;
+  background-color:#ff00a0;
   color: #fff;
   padding: 10px 20px;
   border: none;

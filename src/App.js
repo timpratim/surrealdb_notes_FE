@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';  // Import the CSS file
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -26,6 +29,15 @@ function App() {
     setIsAddingNote(false);  // Hide inputs after adding note
   };
 
+  const handleDelete = async (id) => {
+    const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
+    if (data.message === "Note deleted successfully") {
+      setNotes(notes.filter(note => note._id !== id));
+    } else {
+      console.error("Failed to delete note.");
+    }
+  };
+
   return (
     <div className="container">
         <h1>Notes</h1>
@@ -49,14 +61,16 @@ function App() {
         <div className="notesGrid"> {/* Wrap your notes with this div */}
             {notes.map(note => (
                 <div key={note._id} className="note">
-                    <h2>{note.title}</h2>
+                    <h2 className="title" style={{ color: '#ff00a0' }}>{note.title}</h2>
                     <p>{note.content}</p>
+                    <button onClick={() => handleDelete(note._id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
                 </div>
             ))}
         </div>
     </div>
-);
-
+  );
 }
 
 export default App;
