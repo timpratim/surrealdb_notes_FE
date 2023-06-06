@@ -1,38 +1,61 @@
-.App {
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  color: #333;
+}
+
+.notesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.note {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);  /* Add shadow effect */
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* rest of your CSS code */
+
+
+input, textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #5CDB95;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button:hover {
+  background-color: #379683;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
