@@ -30,13 +30,15 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
+    console.log(id);
+    const { data } = await axios.delete(`http://localhost:3001/api/notes/${id}`);
     if (data.message === "Note deleted successfully") {
-      setNotes(notes.filter(note => note._id !== id));
+      setNotes(notes.filter(note => note.id !== id));
     } else {
       console.error("Failed to delete note.");
     }
-  };
+};
+
 
   return (
     <div className="container">
@@ -60,10 +62,10 @@ function App() {
         )}
         <div className="notesGrid"> {/* Wrap your notes with this div */}
             {notes.map(note => (
-                <div key={note._id} className="note">
+                <div key={note.id} className="note">
                     <h2 className="title" style={{ color: '#ff00a0' }}>{note.title}</h2>
                     <p>{note.content}</p>
-                    <button onClick={() => handleDelete(note._id)}>
+                    <button onClick={() => handleDelete(note.id)}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>
