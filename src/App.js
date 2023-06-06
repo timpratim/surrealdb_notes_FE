@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';  // Import the CSS file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
@@ -39,11 +40,27 @@ function App() {
     }
 };
 
+const [editingNote, setEditingNote] = useState(null);
 
-  return (
+
+
+const handleUpdate = async () => {
+    const note = { title, content };
+    const { data } = await axios.put(`http://localhost:3001/api/notes/${editingNote.id}`, note);
+    setNotes(oldNotes => oldNotes.map(n => n.id === editingNote.id ? data : n));
+    setTitle('');
+    setContent('');
+    setIsAddingNote(false);
+    setEditingNote(null);  // Exit editing mode
+  };
+
+
+
+
+   return (
     <div className="container">
         <h1>Notes</h1>
-        <button className="addButton" onClick={() => setIsAddingNote(true)}>+</button>
+        <button className="addButton" onClick={() => {setIsAddingNote(true); setEditingNote(null);}}>+</button>
         {isAddingNote && (
             <>
                 <input 
@@ -57,7 +74,9 @@ function App() {
                     onChange={e => setContent(e.target.value)} 
                     placeholder="Note"
                 />
-                <button onClick={addNote}>Submit Note</button>
+                <button onClick={editingNote ? handleUpdate : addNote}>
+                    {editingNote ? "Update Note" : "Submit Note"}
+                </button>
             </>
         )}
         <div className="notesGrid"> {/* Wrap your notes with this div */}
@@ -68,11 +87,13 @@ function App() {
                     <button onClick={() => handleDelete(note.id)}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
+                    <button onClick={() => {setEditingNote(note); setTitle(note.title); setContent(note.content); setIsAddingNote(true);}}>
+                        <FontAwesomeIcon icon={faPen} />
+                    </button>
                 </div>
             ))}
         </div>
     </div>
   );
 }
-
 export default App;
